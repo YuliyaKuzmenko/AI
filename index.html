@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI у фармрітейлі — Презентація для керівників АНЦ</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#008ECC;--blue-light:#33a8e0;--blue-dark:#006a99;
+  --yellow:#FFE241;--yellow-dim:#e6cb3a;
+  --orange:#FFB10A;
+  --onyx:#0E0E2C;--onyx-card:#161638;--onyx-hover:#1c1c45;
+  --slate:#1C1E24;--lslate:#6E6E77;--dorian:#E7E7E7;--cloud:#F8F8F8;
+  --text:#e0e0ec;--text-dim:#8c8ca0;--text-bright:#ffffff;
+  --border:rgba(0,142,204,.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--onyx);color:var(--text);line-height:1.75;overflow-x:hidden}
+
+.slide{min-height:100vh;padding:80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid var(--border)}
+@media(max-width:900px){.slide{padding:50px 20px}}
+.si{max-width:1100px;margin:0 auto;width:100%}
+
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--text-bright);letter-spacing:-.02em}
+.sn{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--blue);text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px;opacity:.85}
+.ht{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;line-height:1.08;margin-bottom:24px;background:linear-gradient(135deg,#fff,var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.st{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:18px}
+.sub{font-size:1.2rem;color:var(--text-dim);max-width:720px;margin-bottom:36px}
+.lead{font-size:1.1rem;line-height:1.85;margin-bottom:20px}
+
+.qb{border-left:3px solid var(--blue);padding:22px 28px;background:var(--onyx-card);border-radius:0 12px 12px 0;margin:28px 0;font-style:italic;font-size:1.1rem}
+.qb .au{display:block;margin-top:10px;font-style:normal;font-family:'Montserrat',sans-serif;font-size:.82rem;font-weight:600;color:var(--yellow)}
+
+.cg{display:grid;gap:18px;margin:28px 0}
+.cg2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.cg3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+.c{background:var(--onyx-card);border:1px solid var(--border);border-radius:14px;padding:26px;transition:all .3s}
+.c:hover{background:var(--onyx-hover);border-color:var(--blue);transform:translateY(-2px)}
+.ci{font-size:1.8rem;margin-bottom:12px;display:block}
+.c h4{font-size:1.05rem;margin-bottom:8px;font-weight:700}
+.c p{color:var(--text-dim);font-size:.93rem;line-height:1.6}
+
+.tc{background:var(--onyx-card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden}
+.tc::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--orange)}
+.tc h4{color:var(--orange);font-size:.95rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+
+.sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:28px 0}
+.sb{text-align:center;padding:24px 14px;background:var(--onyx-card);border-radius:14px;border:1px solid var(--border)}
+.sn2{font-family:'Montserrat',sans-serif;font-size:2.4rem;font-weight:900;color:var(--yellow);display:block;line-height:1;margin-bottom:6px}
+.sl{font-size:.82rem;color:var(--text-dim);line-height:1.4}
+.stag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:2px 9px;border-radius:100px;background:rgba(0,142,204,.12);color:var(--blue-light);margin:3px 3px 3px 0}
+.badge{font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:5px 12px;border-radius:100px;background:var(--blue);color:#fff}
+.badge.y{background:var(--yellow);color:var(--onyx)}
+.badge.o{background:var(--orange);color:var(--onyx)}
+
+.obj{background:var(--onyx-card);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden}
+.obj-q{padding:22px 26px;font-family:'Montserrat',sans-serif;font-size:1.08rem;font-weight:700;color:var(--yellow);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s}
+.obj-q:hover{background:var(--onyx-hover)}
+.obj-q .tgl{font-size:1.4rem;transition:transform .3s;color:var(--text-dim);flex-shrink:0;margin-left:14px}
+.obj.open .obj-q .tgl{transform:rotate(45deg)}
+.obj-a{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 26px}
+.obj.open .obj-a{max-height:900px;padding:0 26px 26px}
+.obj-a p{margin-bottom:12px}
+.ah{background:rgba(0,142,204,.08);border:1px solid var(--blue);border-radius:10px;padding:16px 20px;margin:14px 0;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.98rem;color:var(--blue-light)}
+
+.db{background:linear-gradient(135deg,var(--onyx-card),rgba(0,142,204,.06));border:1px solid rgba(0,142,204,.25);border-radius:16px;padding:28px;margin:18px 0}
+.db h4{color:var(--blue-light);margin-bottom:8px}
+.dp{font-family:'JetBrains Mono',monospace;font-size:.82rem;background:rgba(0,0,0,.4);padding:14px 18px;border-radius:10px;margin:12px 0;color:var(--blue-light);line-height:1.6;border-left:3px solid var(--blue)}
+
+.tl{position:relative;margin:28px 0}
+.tl::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:var(--border)}
+.ti{padding-left:58px;padding-bottom:32px;position:relative}
+.td{position:absolute;left:14px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--blue);border:3px solid var(--onyx)}
+.ti h4{font-size:1.05rem;margin-bottom:6px}
+.ti p,.ti li{color:var(--text-dim);font-size:.93rem}
+.ti ul{margin-top:6px;padding-left:16px}
+.ti li{margin-bottom:5px}
+
+.nav-bar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(14,14,44,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:1000;font-family:'Montserrat',sans-serif}
+.nav-logo{font-weight:800;font-size:.9rem;color:var(--blue)}
+.nav-progress{height:2px;background:linear-gradient(90deg,var(--blue),var(--yellow));position:fixed;top:52px;left:0;z-index:999;transition:width .2s}
+.nav-ctr{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text-dim)}
+.fm{font-size:clamp(1.3rem,3vw,1.7rem);font-family:'Montserrat',sans-serif;font-weight:700;text-align:center;max-width:800px;margin:0 auto;line-height:1.5;color:var(--text-bright)}
+.fm em{color:var(--yellow);font-style:normal}
+.break-s{background:linear-gradient(135deg,var(--blue-dark),var(--onyx));text-align:center}
+.fade-up{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.hl{color:var(--blue-light);font-weight:600}
+.hl2{color:var(--yellow);font-weight:600}
+.small{font-size:.88rem;color:var(--text-dim)}
+a{color:var(--blue-light)}
+</style>
+</head>
+<body>
+
+<div class="nav-bar"><div class="nav-logo">АНЦ · AI для керівників</div><div class="nav-ctr" id="nc">1 / 16</div></div>
+<div class="nav-progress" id="np" style="width:0%"></div>
+
+<!-- ===== S1: COVER ===== -->
+<div class="slide" id="s1" style="text-align:center"><div class="si fade-up">
+  <div class="sn">Презентація для самостійного вивчення · Керівники підрозділів</div>
+  <h1 class="ht" style="max-width:900px;margin:0 auto 20px">AI у фармрітейлі:<br>не вірити — побачити</h1>
+  <p class="sub" style="margin:0 auto 36px;text-align:center">Факти, кейси, аргументи.<br>Для тих, хто приймає рішення.</p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <span class="stag">Walgreens · CVS · Нова Пошта</span>
+    <span class="stag">Сільпо · АТБ · Аврора/EVA</span>
+    <span class="stag">FRACTAL · kmbs · Flow</span>
+  </div>
+</div></div>
+
+<!-- ===== S2: TRUTHS ===== -->
+<div class="slide" id="s2"><div class="si fade-up">
+  <div class="sn">Блок 1 · Чесний старт</div>
+  <h2 class="st">Три правди, які ми не будемо ховати</h2>
+  <p class="sub">Перш ніж говорити про можливості — визнаємо очевидне. Бо довіра починається з чесності.</p>
+
+  <div class="tc">
+    <h4>⚠️ Правда 1: AI помиляється — і це не баг, а природа технології</h4>
+    <p class="lead">Штучний інтелект «галюцинує» — це офіційний термін для ситуацій, коли модель впевнено видає <strong>неправильну інформацію, подаючи її як факт</strong>. За даними дослідників, навіть найкращі моделі (GPT-5, Claude Opus, Gemini) допускають фактичні помилки у 6-10% відповідей.</p>
+    <p>Як це виглядає на практиці: ви просите AI проаналізувати дані плинності — і він видає красивий звіт з висновками. Але одна з цифр може бути порахована неправильно. Або він «побачить» кореляцію, якої насправді немає. Або він процитує дослідження, якого не існує — бо «здогадався», що таке дослідження мало б існувати.</p>
+    <p><span class="hl">Що це означає для нас:</span> кожну відповідь AI потрібно перевіряти. Це не робить технологію марною — це робить її <strong>інструментом, а не оракулом</strong>. Калькулятор теж не приймає рішень — він рахує. Перевіряти результат — ваша задача. Але рахувати він все одно швидше за вас.</p>
+  </div>
+
+  <div class="tc">
+    <h4>⚠️ Правда 2: AI не знає вашу специфіку — і саме тому ви потрібні</h4>
+    <p class="lead">AI навчений на мільярдах текстів з інтернету. Але він <strong>не навчений на вашій компанії</strong>. Він не знає, як працює конкретно ваш підрозділ, ваша внутрішня звітність, ваші домовленості з партнерами.</p>
+    <p>Він не знає, що постачальник X завжди затримує поставки на 3 дні. Що звіт до Лукер формується інакше для Запоріжжя. Що в цій аптеці найкраща провізорка виходить на пенсію через місяць. Що ваш керівник любить бачити цифри у форматі таблиці, а не графіку.</p>
+    <p><span class="hl">Що це означає:</span> ваш контекст, ваш досвід, ваше знання людей і процесів — це те, чого AI ніколи не матиме. Він може дати <strong>перший чернетковий варіант за секунди</strong>. А ви перетворюєте його на готовий результат за хвилини. Разом — сила. Окремо — неповна картина.</p>
+  </div>
+
+  <div class="tc">
+    <h4>⚠️ Правда 3: Страх перед AI — нормальна людська реакція</h4>
+    <p class="lead">Дослідник і підприємець Юра Гнатюк (подкаст Flow) ввів термін <span class="hl2">«пастка ідентичності»</span> для пояснення того, чому компетентні люди часто опираються AI найсильніше.</p>
+    <p>Ось як це працює: коли людина роками будувала свою професійну цінність на конкретному навику — швидко готувати звіти, знати всі нюанси системи, бути «тим, до кого всі приходять за порадою» — поява інструменту, який робить частину цієї роботи за секунди, сприймається не як загроза <em>роботі</em>, а як загроза <em>особистій значущості</em>.</p>
+    <p>Це не лінощі і не дурість. Це <strong>нейробіологія</strong>. Мозок захищає те, у що ми вклали роки. Тому фраза «я пробував AI, нічого особливого» — це часто не скепсис, а захисна реакція: людина спробувала, побачила, що AI дійсно швидкий — і закрила, бо це занадто некомфортно.</p>
+    <p><span class="hl">Що з цим робити:</span> визнати, що цей страх нормальний. Не боротися з ним, а дати собі час спробувати в безпечному середовищі — без оцінювання, без тиску, у своєму темпі. Досвід — найкращі ліки від страху. Саме тому ця презентація — не лекція, а запрошення спробувати.</p>
+    <p class="small" style="margin-top:12px">📎 Подкаст Flow: <a href="https://youtu.be/l8ZfFeqnEUI" target="_blank">«Чому розумні люди саботують інновації»</a> · Епізод побудований на інсайтах з книги The Diary of a CEO (Steven Bartlett) та інтерв'ю Marc Andreessen.</p>
+  </div>
+</div></div>
+
+<!-- ===== S3: GAP ===== -->
+<div class="slide" id="s3"><div class="si fade-up">
+  <div class="sn">Блок 2 · Що відбувається</div>
+  <h2 class="st">Розрив між уявленням і реальністю</h2>
+  <p class="sub">Дослідження ItPro (2026) показало: керівники серйозно переоцінюють те, наскільки їхні команди працюють з AI. Це не критика — це діагностика, яка пояснює, чому «впровадження зверху» не працює без залучення самих людей.</p>
+  <div class="cg cg2">
+    <div class="c" style="text-align:center"><span class="sn2">59%</span><p><strong>CEO впевнені:</strong> команда масово використовує AI</p></div>
+    <div class="c" style="text-align:center"><span class="sn2" style="color:var(--orange)">42%</span><p><strong>Працівників</strong> реально це роблять</p></div>
+    <div class="c" style="text-align:center"><span class="sn2">25%</span><p><strong>CEO вірять:</strong> AI вже виконує цілі задачі</p></div>
+    <div class="c" style="text-align:center"><span class="sn2" style="color:var(--orange)">8%</span><p><strong>Працівників</strong> реально так працюють</p></div>
+  </div>
+  <p class="lead" style="margin-top:28px">Дослідження Pew Research / Gallup додає контексту: <span class="hl">75% людей, які працюють з AI, довіряють йому</span>. Серед тих, хто не пробував — лише 25%. Різниця — не в інтелекті і не в посаді. Різниця — в досвіді.</p>
+  <div class="ah" style="text-align:center">Довіра до AI зростає пропорційно до досвіду роботи з ним.</div>
+</div></div>
+
+<!-- ===== S4: SCALE ===== -->
+<div class="slide" id="s4"><div class="si fade-up">
+  <div class="sn">Блок 2 · Масштаб</div>
+  <h2 class="st">Не «колись» — зараз</h2>
+  <p class="sub">Цифри з різних джерел, але вони малюють одну картину: AI-хвиля проходить через всі індустрії — і фармрітейл не виключення.</p>
+  <div class="sr">
+    <div class="sb"><span class="sn2">92%</span><span class="sl">компаній збільшать AI-інвестиції за 3 роки<br><span class="stag">McKinsey</span></span></div>
+    <div class="sb"><span class="sn2">42%</span><span class="sl">МСБ в Україні вже працюють з AI — ×2 за рік<br><span class="stag">Mastercard UA</span></span></div>
+    <div class="sb"><span class="sn2">39%</span><span class="sl">навичок застаріють до 2030<br><span class="stag">WEF</span></span></div>
+    <div class="sb"><span class="sn2">+65%</span><span class="sl">зросла взаємодія з AI-агентами за пів року<br><span class="stag">Salesforce</span></span></div>
+    <div class="sb"><span class="sn2">500</span><span class="sl">tech-спеціалістів у Сільпо — рітейлер у ТОП-50 IT<br><span class="stag">DOU 2026</span></span></div>
+    <div class="sb"><span class="sn2">$3.2M</span><span class="sl">річна економія Walgreens від AI в 1000 аптеках<br><span class="stag">PMC/NCBI</span></span></div>
+  </div>
+  <p class="lead">Український рітейл вже активно трансформується: Сільпо увійшло до рейтингу DOU як tech-компанія з 500 спеціалістами, Аврора/EVA будує власну tech-інфраструктуру, АТБ інвестує в автоматизацію процесів, Нова Пошта розгортає AI-агентів у логістиці та клієнтському сервісі. Це загальноринковий тренд, в якому <span class="hl">є простір і для нашої мережі</span>.</p>
+</div></div>
+
+<!-- ===== S5: WALGREENS ===== -->
+<div class="slide" id="s5"><div class="si fade-up">
+  <div class="sn">Блок 3 · Кейси фармрітейлу</div>
+  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px"><h2 class="st" style="margin-bottom:0">Walgreens</h2><span class="badge">Фармрітейл · 9 000 аптек · США</span></div>
+
+  <p class="lead">Walgreens Boots Alliance — одна з найбільших аптечних мереж у світі. Протягом 2023-2026 років компанія впровадила <strong>AI-систему взаємодії з пацієнтами</strong>, побудовану на основі обробки природної мови (NLP) та предиктивної аналітики. Система працює у понад 1 000 аптеках і відповідає за комунікацію з пацієнтами — нагадування про прийом ліків, моніторинг повторних рецептів, персоналізовані рекомендації.</p>
+
+  <p class="lead">Паралельно Walgreens розгорнув мережу <strong>роботизованих мікро-фулфілмент-центрів</strong> — автоматизованих хабів, які обробляють рецептурні замовлення. Станом на 2025-2026 рік ці центри обслуговують <strong>60% рецептурних відпусків для ~5 000 аптек</strong> і обробляють до 100 000 рецептів на день (у партнерстві з Walmart). Рівень помилок у автоматизованому відпуску наближається до нуля, тоді як при ручній обробці помилки складали помітний відсоток.</p>
+
+  <div class="sr">
+    <div class="sb"><span class="sn2">+40%</span><span class="sl">дотримання режиму прийому ліків</span></div>
+    <div class="sb"><span class="sn2">−55%</span><span class="sl">пропущених повторних рецептів</span></div>
+    <div class="sb"><span class="sn2">+62%</span><span class="sl">задоволеність пацієнтів</span></div>
+    <div class="sb"><span class="sn2">+33%</span><span class="sl">продуктивність фармацевтів</span></div>
+    <div class="sb"><span class="sn2">~0%</span><span class="sl">помилок у автоматизованому відпуску</span></div>
+    <div class="sb"><span class="sn2">$3.2M</span><span class="sl">річна економія</span></div>
+  </div>
+
+  <p class="lead"><strong>Головний висновок:</strong> фармацевти не звільнені. Walgreens перевів їх на клінічні ролі — консультування пацієнтів, управління хронічними захворюваннями, профілактика. Компанія публічно сформулювала три стратегічних запитання: <em>як зробити команди ефективнішими? як масштабувати клінічні програми? і як підняти роль фармацевта, щоб люди бачили аптеку як кар'єру, а не рутину?</em></p>
+
+  <div class="qb">«Ми модернізуємо модель для довгострокового майбутнього — і людей, і інфраструктуру. Але головне — переосмислюємо, як ми працюємо.»<span class="au">Drug Topics, 2025 · Pharmacy Times, 2026</span></div>
+</div></div>
+
+<!-- ===== S6: FRACTAL + CVS + NP ===== -->
+<div class="slide" id="s6"><div class="si fade-up">
+  <div class="sn">Блок 3 · Кейси</div>
+  <h2 class="st">CVS Health · FRACTAL · Нова Пошта</h2>
+
+  <div class="c" style="margin-bottom:18px;border-color:var(--blue)">
+    <span class="badge" style="margin-bottom:12px;display:inline-block">CVS Health · 9 000+ аптек · США</span>
+    <p class="lead">У грудні 2025 року CVS представила <strong>AI-native платформу</strong> — єдиний цифровий інтерфейс, що об'єднує аптеки CVS Pharmacy, страхову компанію Aetna, сервіс CVS Caremark та клініки. Платформа використовує AI для трьох ключових задач: <strong>розмовні інструменти</strong> для обробки клієнтських запитів (пацієнт може задати питання природною мовою), <strong>автоматизація адміністративного навантаження</strong> (документація, звітність), і <strong>ambient AI</strong> — технологія, яка слухає розмову лікаря з пацієнтом і автоматично створює медичну документацію.</p>
+    <p style="color:var(--yellow);font-style:italic;margin-top:10px">CEO CVS Девід Джойнер: «Медицина сьогодні фрагментована і складна. Наш фокус — на спрощенні, і технологія є центральною в цьому.»</p>
+  </div>
+
+  <div class="c" style="margin-bottom:18px;border-color:var(--blue)">
+    <span class="badge" style="background:var(--orange);color:var(--onyx);margin-bottom:12px;display:inline-block">FRACTAL · 1 600 людей · Україна</span>
+    <p class="lead">FRACTAL (раніше Netpeak Group) — українська IT-екосистема з 25+ компаніями. Засновник Артем Бородатюк називає AI <strong>«екзоскелетом»</strong>: «Це не заміна тіла — це підсилення. Розумні люди завдяки AI стають ще розумнішими.»</p>
+    <p><strong>Кейс 1 — $500K → 1 людина:</strong> AI-директор FRACTAL Сергій Саута самотужки за кілька місяців створив застосунок FRACTAL PLUS для самопізнання та профорієнтації. Компанія підрахувала: якби це робила команда, коштувало б ~$500 000.</p>
+    <p style="margin-top:8px"><strong>Кейс 2 — Liti (AI-рекрутинг):</strong> AI-модель аналізує 6 000 співбесід на місяць за 300+ параметрами. Три моделі оцінки: «розкішний менеджер», «автономний співробітник», «трекер». Liti не економить гроші — вона <em>підвищує якість</em> найму, звужуючи воронку.</p>
+    <p style="margin-top:8px"><strong>Кейс 3 — масове впровадження:</strong> Курс з AI запропонували команді добровільно. 1 050 з 1 600 пройшли самі. Коли побачили, що це стало популярним — приєдналися ще 500. Не наказ — приклад.</p>
+  </div>
+
+  <div class="c" style="border-color:var(--blue)">
+    <span class="badge" style="background:#3b82f6;margin-bottom:12px;display:inline-block">Нова Пошта · Україна</span>
+    <p class="lead">Найбільша логістична компанія України активно впроваджує AI за кількома напрямками: <strong>прогнозування в логістиці</strong> (оптимізація маршрутів, навантаження відділень), <strong>автоматизація клієнтського сервісу</strong> (чат-боти, обробка запитів), <strong>HR-процеси</strong> (первинні співбесіди через AI, AI-аналітик ринку праці), а також <strong>навчання співробітників</strong> (вивчення англійської мови через AI).</p>
+    <p style="color:var(--yellow);font-style:italic;margin-top:10px">«AI-агенти вже стали критично важливим підсиленням для команд. AI не замінює людей, а бере на себе рутину, дозволяючи співробітникам працювати значно ефективніше.»</p>
+  </div>
+</div></div>
+
+<!-- ===== S7: DEMO ===== -->
+<div class="slide" id="s7"><div class="si fade-up">
+  <div class="sn">Блок 4 · Спробуй сам</div>
+  <h2 class="st">AI на практиці: що він робить, а що — ви</h2>
+  <p class="sub">Головне правило: AI дає перший чернетковий варіант швидко. Ваша задача — валідувати, коригувати, додати контекст.</p>
+
+  <div class="db">
+    <h4>Приклад 1 · Відповідь на скаргу клієнта</h4>
+    <div class="dp">«Клієнт скаржиться на чергу в аптеці. Підготуй відповідь від імені мережі. Тон — професійний, емпатичний.»</div>
+    <p><span class="hl2">AI зробить:</span> згенерує структуровану відповідь з вибаченням, поясненням і пропозицією вирішення — за 15-30 секунд.</p>
+    <p><span class="hl">Ви зробите:</span> перевірите факти (чи дійсно була черга, причина), додасте контекст (один провізор був на лікарняному), скоригуєте тон. <strong>Без вашої валідації</strong> відповідь буде коректною за формою, але може бути неточною за змістом.</p>
+    <p class="small">⏱️ 3 хв замість 25. Ключові 2 хвилини — ваші.</p>
+  </div>
+
+  <div class="db">
+    <h4>Приклад 2 · Аналіз даних</h4>
+    <div class="dp">«Проаналізуй дані плинності за 6 місяців. Знайди патерни: регіони, посади, стаж. Дай гіпотези причин.»</div>
+    <p><span class="hl2">AI зробить:</span> виділить тренди, кореляції, запропонує 5-7 гіпотез. Можливо, помітить те, що ви не бачили (наприклад, зв'язок між плинністю і днем тижня найму).</p>
+    <p><span class="hl">Ви зробите:</span> перевірите, чи не «галюцинує» AI, відкинете нерелевантні гіпотези, додасте знання про внутрішні фактори. <strong>AI не знає контексту — тільки цифри.</strong></p>
+    <p class="small">⏱️ Перший аналіз за 2 хв. Раніше — 2 дні. Фінальні висновки — ваші.</p>
+  </div>
+
+  <div class="db">
+    <h4>Приклад 3 · Підготовка документа</h4>
+    <div class="dp">«Напиши структуру ТЗ на інтеграцію модуля автоматичного звітування. Дані йдуть з 1С в Looker Studio.»</div>
+    <p><span class="hl2">AI зробить:</span> створить логічну структуру з розділами, критеріями, вимогами — базовий скелет за 1 хвилину.</p>
+    <p><span class="hl">Ви зробите:</span> вставите реальні назви полів, специфіку архітектури, бізнес-правила, які ніде не задокументовані. <strong>AI дає раму — ви наповнюєте змістом.</strong></p>
+  </div>
+
+  <div class="ah" style="text-align:center;margin-top:24px"><strong>AI = швидка чернетка (80% роботи за 5% часу).</strong><br>Ви = валідація + контекст + фінальне рішення (20% роботи, яка визначає якість).</div>
+</div></div>
+
+<!-- ===== S8: FAQ ===== -->
+<div class="slide" id="s8"><div class="si fade-up">
+  <div class="sn">Блок 5 · Часті запитання</div>
+  <h2 class="st">Аргументи «за» — чесно</h2>
+  <p class="sub">Натисніть на запитання, щоб побачити відповідь.</p>
+
+  <div class="obj" onclick="this.classList.toggle('open')">
+    <div class="obj-q">«AI забере мою роботу?» <span class="tgl">+</span></div>
+    <div class="obj-a">
+      <p>Дві третини компаній, що скорочували персонал заради AI, вже знову наймають — і більше третини витратили на повторне наймання БІЛЬШЕ (Gartner, 2026). Walgreens не звільнив фармацевтів — перевів на клінічні ролі. Нова Пошта каже прямо: «AI не замінює людей».</p>
+      <div class="ah">AI не забирає роботу. AI забирає рутину з роботи. Якщо ваша робота — контекст, рішення, комунікація — AI стає підсиленням, а не конкурентом.</div>
+    </div>
+  </div>
+
+  <div class="obj" onclick="this.classList.toggle('open')">
+    <div class="obj-q">«Я вже пробував/ла — нічого особливого» <span class="tgl">+</span></div>
+    <div class="obj-a">
+      <p>Є різниця між «спробувати раз» і «навчитися». Бородатюк — не програміст, але після тижня практики завайбкодив робочий застосунок. Перший запит — як перший раз за кермом.</p>
+      <div class="ah">Навичка промптингу розвивається за 2-3 тижні щоденної практики. Перший невдалий досвід — не вирок, а перший урок.</div>
+    </div>
+  </div>
+
+  <div class="obj" onclick="this.classList.toggle('open')">
+    <div class="obj-q">«Це для IT-компаній, не для нас» <span class="tgl">+</span></div>
+    <div class="obj-a">
+      <p>Walgreens (9 000 аптек), CVS, Walmart — це аптечні мережі. Сільпо, АТБ, Аврора/EVA — рітейл. Нова Пошта — логістика. Жодна з цих компаній не є «IT-компанією» в класичному розумінні. Але всі вони вже впроваджують AI в операційні, фінансові, клієнтські процеси.</p>
+      <div class="ah">AI — інструмент для кожного, хто працює з текстом, даними, комунікацією. Тобто для кожного керівника, незалежно від галузі.</div>
+    </div>
+  </div>
+
+  <div class="obj" onclick="this.classList.toggle('open')">
+    <div class="obj-q">«А що з безпекою даних?» <span class="tgl">+</span></div>
+    <div class="obj-a">
+      <p><strong>Не завантажуємо:</strong> персональні дані, фінансові документи, ліцензійні матеріали у публічні AI. <strong>Використовуємо:</strong> корпоративні ліцензії (дані не навчають моделі), працюємо на рівні задач, IT формує політику безпеки.</p>
+      <div class="ah">IT-директор — архітектор безпечного впровадження. Без IT нічого не починається. Це партнерство.</div>
+    </div>
+  </div>
+
+  <div class="obj" onclick="this.classList.toggle('open')">
+    <div class="obj-q">«AI галюцинує — як йому довіряти?» <span class="tgl">+</span></div>
+    <div class="obj-a">
+      <p>Так, AI помиляється — ми чесно сказали це на першому слайді. Але ось контекст: люди теж помиляються. Різниця в тому, що AI робить першу чернетку за секунди — а ви перевіряєте за хвилини. Загальний час менший, якість — вища, бо у вас є і швидкість AI, і ваша експертиза.</p>
+      <div class="ah">AI + людський контроль = сила. AI без контролю = ризик. Людина без AI = повільність. Найкраща комбінація — обидва разом.</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ===== S9: VIBE CODING ===== -->
+<div class="slide" id="s9"><div class="si fade-up">
+  <div class="sn">Блок 6 · Нові навички</div>
+  <h2 class="st">Вайбкодинг: коли код пише AI, а ви — задаєте напрямок</h2>
+  <p class="sub">Термін, який змінив уявлення про те, хто може створювати програмні продукти.</p>
+
+  <div class="cg cg2">
+    <div class="c">
+      <h4>Що це таке?</h4>
+      <p>Вайбкодинг (vibe coding) — підхід, де ви описуєте задачу звичайною мовою, а AI генерує код. Термін ввів Андрей Карпати (співзасновник OpenAI): <em>«Новий тип програмування, де ви забуваєте, що код існує.»</em></p>
+      <p style="margin-top:10px">Станом на 2026 рік Карпати оновив концепцію: професійна версія — <span class="hl">«агентна інженерія»</span>: AI пише код, людина контролює якість і бізнес-логіку.</p>
+    </div>
+    <div class="c">
+      <h4>Чому це мейнстрім?</h4>
+      <p><strong>Чверть стартапів у Y Combinator</strong> — вайбкодери. CEO YC Гаррі Тан: <em>«Це не примха. Це новий головний спосіб.»</em></p>
+      <p style="margin-top:10px">Forbes Ukraine назвав це «не хайпом, а початком нової парадигми». Навичка вже з'являється у вакансіях Reddit та інших компаній.</p>
+    </div>
+  </div>
+
+  <div class="c" style="margin-top:18px;border-color:var(--blue)">
+    <h4>Що це означає для менеджера?</h4>
+    <p>Бородатюк (CEO FRACTAL, не програміст) за вечір створив робочий застосунок для Spotify. Антон Єрмоленко (EVA.ua) написав гайд «як зробити застосунок, навіть якщо ніколи не писали код». <span class="hl2">Головна навичка — не знання синтаксису, а здатність чітко сформулювати задачу.</span> А це вміє кожен керівник.</p>
+    <p class="small" style="margin-top:10px">📎 <a href="https://dou.ua/lenta/articles/what-is-vibecoding-developement/" target="_blank">DOU: «Що таке вайбкодинг»</a> · <a href="https://happymonday.ua/shcho-take-vaibkodynh" target="_blank">HappyMonday: «Як зробити застосунок без коду»</a></p>
+  </div>
+</div></div>
+
+<!-- ===== S10: AI → AGI → ASI ===== -->
+<div class="slide" id="s10"><div class="si fade-up">
+  <div class="sn">Блок 7 · Куди це рухається</div>
+  <h2 class="st">Від AI до ASI: три етапи інтелекту</h2>
+  <p class="sub">Ці терміни часто плутають — але вони означають принципово різні речі. Розуміння цієї різниці допомагає оцінити, де ми зараз і чого очікувати.</p>
+
+  <div class="c" style="margin-bottom:18px;border-left:4px solid var(--blue)">
+    <span class="ci">🤖</span>
+    <h4>AI — Artificial Intelligence · «Вузький інтелект»</h4>
+    <p class="lead"><strong>Це те, що є зараз.</strong> ChatGPT, Claude, Gemini — це все AI. Системи, що чудово виконують конкретні задачі: генерують текст, аналізують дані, пишуть код, створюють зображення. Але кожна модель працює в межах свого «тунелю» — вона не має загального розуміння світу, не може самостійно вчитися з досвіду і не розуміє контексту, який не був у її тренувальних даних.</p>
+    <p><span class="hl2">Аналогія:</span> як вузький спеціаліст — блискучий у своїй справі, але за межами компетенції — безпомічний. Саме тому AI потребує вашої валідації.</p>
+  </div>
+
+  <div class="c" style="margin-bottom:18px;border-left:4px solid var(--yellow)">
+    <span class="ci">🧠</span>
+    <h4>AGI — Artificial General Intelligence · «Загальний інтелект»</h4>
+    <p class="lead"><strong>Наступний теоретичний етап.</strong> Система, здатна розуміти, навчатися і вирішувати будь-які інтелектуальні задачі на рівні людини — у будь-якій сфері, без спеціального перенавчання. AGI зможе читати контракт, діагностувати хворобу, писати стратегію і грати в шахи — однаково добре.</p>
+    <p>Прогнози різняться: CEO Anthropic Даріо Амодей каже «можливо, у 2026» і порівнює це з «країною геніїв у дата-центрі». NVIDIA — до 2029. Ян ЛеКун (Meta) вважає, що ми ще далеко. OpenAI описує п'ять стадій: чат-боти → reasoning → агенти → винахідники → моделі, здатні виконувати роботу організації.</p>
+    <p><span class="hl2">Аналогія:</span> як досвідчений генераліст — вміє все, що вміє людина. Поки що — теорія, але інвестиції — реальні.</p>
+  </div>
+
+  <div class="c" style="border-left:4px solid var(--orange)">
+    <span class="ci">⚡</span>
+    <h4>ASI — Artificial Superintelligence · «Надінтелект»</h4>
+    <p class="lead"><strong>Теоретичний горизонт.</strong> Інтелект, що перевищує людський у ВСІХ сферах — і здатний вдосконалювати сам себе. Філософ Нік Бостром визначив це як «інтелект, що значно перевершує когнітивні можливості людини у фактично будь-якій сфері». Ерік Шмідт (екс-CEO Google) назвав ASI «недооціненим» і попередив: «Це відбувається швидше, ніж суспільство встигне підготуватися.»</p>
+    <p>Ilya Sutskever (екс-OpenAI) заснував компанію Safe Superintelligence Inc. — з однією метою: створити безпечний надінтелект. Meta змістила фокус на «personal superintelligence». Це вже не наукова фантастика — це стратегічний напрямок найбільших компаній світу.</p>
+    <p><span class="hl2">Аналогія:</span> як людський інтелект порівняно з комахою — не просто швидший, а якісно інший рівень мислення.</p>
+  </div>
+
+  <div class="ah" style="text-align:center;margin-top:24px">Ми зараз на етапі AI (вузький інтелект). Темп такий, що <strong>базові навички роботи з AI, які ми освоюємо сьогодні, стануть обов'язковими завтра</strong> — як Excel став обов'язковим 20 років тому. Краще вчитися зараз, поки є час освоїтися без тиску.</div>
+</div></div>
+
+<!-- ===== S11: BREAK ===== -->
+<div class="slide break-s" id="s11"><div class="si fade-up" style="text-align:center">
+  <p class="sn">Перехід до плану</p>
+  <h2 class="st" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:20px">Що далі?</h2>
+  <p class="sub" style="margin:0 auto;text-align:center">Конкретний план, 5 задач для старту, корисні ресурси.</p>
+</div></div>
+
+<!-- ===== S12: PLAN ===== -->
+<div class="slide" id="s12"><div class="si fade-up">
+  <div class="sn">Блок 8 · План</div>
+  <h2 class="st">Три горизонти</h2>
+  <div class="tl">
+    <div class="ti"><div class="td"></div>
+      <h4 style="color:var(--blue-light)">Горизонт 1 · «Спробувати» · 1-3 місяці</h4>
+      <ul><li>Кожен керівник отримує доступ до Claude Team / ChatGPT Team</li><li>5 задач на тиждень — ті, що забирають найбільше часу</li><li>Двотижневі «AI-кола»: 30 хв, кожен показує кейс або анти-кейс</li><li>IT: політика безпеки, ліцензії, FAQ</li></ul>
+    </div>
+    <div class="ti"><div class="td" style="background:var(--yellow)"></div>
+      <h4 style="color:var(--yellow)">Горизонт 2 · «Інтегрувати» · 3-6 місяців</h4>
+      <ul><li>3-5 процесів з найбільшим ефектом</li><li>Кастомні промпти під задачі АНЦ</li><li>Внутрішня бібліотека кейсів</li><li>Перші метрики: час, якість, помилки</li></ul>
+    </div>
+    <div class="ti"><div class="td" style="background:var(--text-bright)"></div>
+      <h4>Горизонт 3 · «Масштабувати» · 6-12 місяців</h4>
+      <ul><li>AI-агенти для типових процесів</li><li>Інтеграція з Looker Studio, CRM, 1С</li><li>Пілот у 1-2 регіонах</li><li>AI як базова навичка (як Excel)</li></ul>
+    </div>
+  </div>
+</div></div>
+
+<!-- ===== S13: 5 TASKS ===== -->
+<div class="slide" id="s13"><div class="si fade-up">
+  <div class="sn">Блок 8 · Старт</div>
+  <h2 class="st">5 задач для старту — прямо завтра</h2>
+  <div class="cg cg3" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+    <div class="c"><span class="ci">✉️</span><h4>Підготувати відповідь</h4><p>На лист, скаргу, запит. AI дає чернетку — ви додаєте контекст.</p></div>
+    <div class="c"><span class="ci">📋</span><h4>Структурувати нараду</h4><p>Нотатки → AI виділяє рішення, відповідальних, дедлайни.</p></div>
+    <div class="c"><span class="ci">🔍</span><h4>Проаналізувати документ</h4><p>Знайти суперечності, пропущене, ключові тези.</p></div>
+    <div class="c"><span class="ci">📝</span><h4>Написати ТЗ / бриф</h4><p>З хаосу думок — у структурований документ.</p></div>
+    <div class="c"><span class="ci">⚖️</span><h4>Порівняти варіанти</h4><p>«Плюси/мінуси підходу А vs Б з моєї позиції»</p></div>
+  </div>
+</div></div>
+
+<!-- ===== S14: QUOTES ===== -->
+<div class="slide" id="s14"><div class="si fade-up">
+  <div class="sn">Голоси з практики</div>
+  <h2 class="st">Не ми це сказали</h2>
+  <div class="qb">«Штучний інтелект — це екзоскелет. Розумні люди завдяки AI стають ще розумнішими.»<span class="au">Артем Бородатюк · FRACTAL</span></div>
+  <div class="qb">«Найкращі дані для AI — це інсайти від людей, контекст від людей, творчість людей.»<span class="au">Євген Саранцов · kmbs, BlackBox AI</span></div>
+  <div class="qb">«Опір інноваціям рідко буває про технологію. Він майже завжди — про страх втратити значущість.»<span class="au">Юра Гнатюк · Flow, Kindgeek</span></div>
+  <div class="qb">«Це не примха. Це не зникне. Це новий головний спосіб. І якщо ви цього не робите — можете опинитися за бортом.»<span class="au">Гаррі Тан · CEO Y Combinator</span></div>
+</div></div>
+
+<!-- ===== S15: SOURCES ===== -->
+<div class="slide" id="s15"><div class="si fade-up">
+  <div class="sn">Додатково</div>
+  <h2 class="st">YouTube-підкасти для перегляду</h2>
+  <div class="cg cg2">
+    <div class="c"><h4>🎧 Flow: Чому розумні люди саботують інновації</h4><p>Юра Гнатюк · Пастка ідентичності, опір AI</p><p class="small"><a href="https://youtu.be/l8ZfFeqnEUI" target="_blank">youtu.be/l8ZfFeqnEUI</a></p></div>
+    <div class="c"><h4>🎧 FRACTAL Talks: AI змінює ринок праці</h4><p>Бородатюк × Возняк · AI-агенти, рекрутинг, Claude</p><p class="small"><a href="https://youtu.be/CMj9wYKp6Qs" target="_blank">youtu.be/CMj9wYKp6Qs</a></p></div>
+    <div class="c"><h4>🎧 Підпільний Подкаст: ШІ забере роботу?</h4><p>Бородатюк · Вайбкодинг, $500K→1 людина</p><p class="small"><a href="https://youtu.be/7fOcvL8LLH8" target="_blank">youtu.be/7fOcvL8LLH8</a></p></div>
+    <div class="c"><h4>🎧 Forbes: Чи робить ШІ бізнес розумнішим?</h4><p>Бородатюк · Екзоскелет, Liti-рекрутинг</p><p class="small"><a href="https://youtu.be/HxQa2S9Or9I" target="_blank">youtu.be/HxQa2S9Or9I</a></p></div>
+    <div class="c"><h4>🎧 Radio kmbs: ШІ для управлінців</h4><p>Саранцов + Омельчук · 3 рівні AI, кейси</p><p class="small"><a href="https://kmbs.ua/en/podcast_audio/yak-upravlincyam-vikoristovuvati-shtuchnij-intelekt" target="_blank">kmbs.ua</a></p></div>
+    <div class="c"><h4>🎧 Марина Могілко × Gary Vee</h4><p>Наймання в епоху AI, бренд, контент</p><p class="small"><a href="https://youtu.be/R_TpKWq83BM" target="_blank">youtu.be/R_TpKWq83BM</a></p></div>
+  </div>
+</div></div>
+
+<!-- ===== S16: FINAL ===== -->
+<div class="slide" id="s16" style="justify-content:center;text-align:center;min-height:100vh"><div class="si fade-up">
+  <div class="fm">
+    AI не замінить вас.<br><br>
+    Але той, хто працює з AI,<br>
+    вже працює <em>інакше</em>.<br><br>
+    Темп у кожного свій.<br>
+    Напрямок — <em>спільний</em>.
+  </div>
+</div></div>
+
+<script>
+const ss=document.querySelectorAll('.slide'),ts=ss.length;
+window.addEventListener('scroll',()=>{
+  const st=window.scrollY,dh=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('np').style.width=Math.min((st/dh)*100,100)+'%';
+  let cur=1;ss.forEach((s,i)=>{if(s.getBoundingClientRect().top<window.innerHeight*.5)cur=i+1});
+  document.getElementById('nc').textContent=cur+' / '+ts;
+});
+const ob=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible')})},{threshold:.12});
+document.querySelectorAll('.fade-up').forEach(el=>ob.observe(el));
+</script>
+</body>
+</html>
